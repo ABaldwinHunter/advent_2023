@@ -42,27 +42,6 @@ puts cards.sum { |card| points(card) }
 #
 # winning scratch cards
 #
-
-# there are 201 cards
-
-# card_counts = {}
-
-# cards.each.with_index do |card, i|
-#   number = i + 1
-
-#   card_counts[number] = 1 # for the first
-
-#   hits = get_hits(card)
-
-#   number..(number + hits).each do |card_number|
-#     current = card_counts[card_number]
-
-#     if current.nil? || current == 1
-#       card_counts[card_number] += 1
-#     end
-#   end
-# end
-
 hits_matrix = {}
 
 cards.each.with_index do |card, i|
