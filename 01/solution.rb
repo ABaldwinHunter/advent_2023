@@ -7,8 +7,6 @@ NUMBER_REGEX = /\d/
 def get_number(row)
   number = row.scan(/\d/).join('')
 
-  puts "initial match number is #{number}"
-
   num = if number.length == 2
           number.to_i
         elsif number.length < 2
@@ -17,7 +15,6 @@ def get_number(row)
           (number[0] + number[-1]).to_i
         end
 
-  puts "number is #{num}"
   num
 end
 
