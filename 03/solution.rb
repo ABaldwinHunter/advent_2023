@@ -121,3 +121,50 @@ puts sum
 # first attempt 527252 - too high (meanwhile the sample is correct!)
 #
 # second attempt 525181 - correct! (problem was no filtering out diags with the reject)
+#
+
+# part two - gear ratio
+#
+# first get all of the stars
+#
+# then see how many numbers each touches
+#
+
+stars = []
+
+col_coord = 0
+row_coord = 0
+
+while row_coord <= MAX_ROW do
+  while col_coord <= MAX_COL do
+    if grid[row_coord][col_coord] == '*'
+      stars << [row_coord, col_coord]
+    end
+
+    col_coord += 1
+  end
+
+  col_coord = 0
+  row_coord += 1
+end
+
+numbers_touching_stars = {} # star_coords => [number 1, number 2 ...]
+
+numbers.each do |number_with_data|
+  adjacent_coords = get_adjacent_squares(number_with_data)
+
+  adjacent_coords.each do |coords|
+    square = grid[coords.first][coords.last]
+
+    if square == '*'
+      numbers_touching_stars[coords] ||= []
+      numbers_touching_stars[coords] << number_with_data.first
+    end
+  end
+end
+
+gears = numbers_touching_stars.select { |star_coord, adjacent_numbers| adjacent_numbers.length == 2 }
+
+total = gears.map { |coords, numbers| numbers.first * numbers.last }.sum
+
+puts total
