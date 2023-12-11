@@ -1,6 +1,9 @@
 # day 1 part 1
 
-rows = File.read("input.txt").split("\n")
+
+# file = 'sample.txt'
+file = 'input.txt'
+rows = File.read(file).split("\n")
 
 WORD_TO_NUMBER = {
   'one' => 1,
@@ -28,18 +31,35 @@ def get_number(row, matcher)
 
   pair = [numbers.first, numbers.last]
 
-  pair.map { |num| num.to_s }.join('').to_i
+  pair.map { |num| extract_number(num).to_s }.join('').to_i
 end
 
-sum = rows.sum { |row| get_number(row, /\d/) }
+def get_number_part_two(row)
+  first_num  = row.match(NUMBER_AND_WORD_REGEX)[0]
 
-puts sum
+  last_num = row.reverse.match(NUMBER_AND_WORD_REGEX_REVERSE)[0]
 
-NUMBER_AND_WORD_REGEX = /\d|\one|\two|\three|\four|\five|\six|\seven|\eight|\nine|\zero/
+  if last_num.length > 1
+    last_num = last_num.reverse
+  end
+
+  pair = [first_num, last_num]
+
+  pair.map { |num| extract_number(num).to_s }.join('').to_i
+end
+
+# sum = rows.sum { |row| get_number(row, /\d/) }
+
+# puts sum
+
+NUMBER_AND_WORD_REGEX = /\d|one|two|three|four|five|six|seven|eight|nine/
+NUMBER_AND_WORD_REGEX_REVERSE = /\d|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin/
 
 # part 2
 #
 
-part_two_sum = rows.sum { |row| get_number(row, NUMBER_AND_WORD_REGEX) }
+part_two_sum = rows.sum { |row| get_number_part_two(row) }
 
 puts part_two_sum
+
+# 53866
